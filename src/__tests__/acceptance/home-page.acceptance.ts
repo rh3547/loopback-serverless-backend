@@ -1,9 +1,9 @@
 import {Client} from '@loopback/testlab';
-import {Lb4LambdaBoilerplateApplication} from '../..';
+import {LoopbackServerlessBackend} from '../..';
 import {setupApplication} from './test-helper';
 
 describe('HomePage', () => {
-  let app: Lb4LambdaBoilerplateApplication;
+  let app: LoopbackServerlessBackend;
   let client: Client;
 
   before('setupApplication', async () => {

@@ -1,10 +1,10 @@
-import {Lb4LambdaBoilerplateApplication} from './application';
+import {LoopbackServerlessBackend} from './application';
 
 export async function migrate(args: string[]) {
   const existingSchema = args.includes('--rebuild') ? 'drop' : 'alter';
   console.log('Migrating schemas (%s existing schema)', existingSchema);
 
-  const app = new Lb4LambdaBoilerplateApplication();
+  const app = new LoopbackServerlessBackend();
   await app.boot();
   await app.migrateSchema({existingSchema});
 

@@ -3,7 +3,7 @@ const AWS = require('aws-sdk');
 const application = require('./dist');
 const awsServerlessExpress = require('aws-serverless-express');
 let configs = {};
-const app = new application.Lb4LambdaBoilerplateApplication({
+const app = new application.LoopbackServerlessBackend({
   rest: {
     openApiSpec: {
       setServersFromRequest: true,

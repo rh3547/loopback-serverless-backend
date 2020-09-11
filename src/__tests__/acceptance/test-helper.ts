@@ -1,9 +1,8 @@
-import {Lb4LambdaBoilerplateApplication} from '../..';
 import {
-  createRestAppClient,
-  givenHttpServerConfig,
-  Client,
+  Client, createRestAppClient,
+  givenHttpServerConfig
 } from '@loopback/testlab';
+import {LoopbackServerlessBackend} from '../..';
 
 export async function setupApplication(): Promise<AppWithClient> {
   const restConfig = givenHttpServerConfig({
@@ -14,7 +13,7 @@ export async function setupApplication(): Promise<AppWithClient> {
     // port: +process.env.PORT,
   });
 
-  const app = new Lb4LambdaBoilerplateApplication({
+  const app = new LoopbackServerlessBackend({
     rest: restConfig,
   });
 
@@ -27,6 +26,6 @@ export async function setupApplication(): Promise<AppWithClient> {
 }
 
 export interface AppWithClient {
-  app: Lb4LambdaBoilerplateApplication;
+  app: LoopbackServerlessBackend;
   client: Client;
 }

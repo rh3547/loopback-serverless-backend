@@ -2,6 +2,8 @@
 
 This directory contains source files for the controllers exported by this app.
 
+`lb4 controller`
+
 To add a new empty controller, type in `lb4 controller [<name>]` from the
 command-line of your application's root directory.
 

@@ -1,10 +1,10 @@
-import {Lb4LambdaBoilerplateApplication} from './application';
 import {ApplicationConfig} from '@loopback/core';
+import {LoopbackServerlessBackend} from './application';
 
-export {Lb4LambdaBoilerplateApplication};
+export {LoopbackServerlessBackend};
 
 export async function main(options: ApplicationConfig = {}) {
-  const app = new Lb4LambdaBoilerplateApplication(options);
+  const app = new LoopbackServerlessBackend(options);
   await app.boot();
   await app.start();
 
