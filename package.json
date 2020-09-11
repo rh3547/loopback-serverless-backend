@@ -27,7 +27,7 @@
     "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
     "docker:build": "docker build -t loopback-serverless .",
     "docker:run": "docker run -p 3000:3000 -d loopback-serverless",
-    "migrate": "node ./dist/migrate",
+    "migrate": "lb-tsc && node ./dist/migrate",
     "prestart-raw": "npm run build",
     "start": "lb-tsc && node -r source-map-support/register .",
     "prepublishOnly": "npm run test",
@@ -60,6 +60,7 @@
     "@loopback/service-proxy": "^2.3.8",
     "aws-serverless-express": "^3.3.8",
     "loopback-connector-mysql": "^5.4.4",
+    "loopback-connector-rest": "^3.7.0",
     "serverless": "^1.74.1",
     "serverless-offline": "^6.4.0",
     "tslib": "^2.0.0"

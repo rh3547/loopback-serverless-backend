@@ -31,11 +31,22 @@ export class Todo extends Entity {
 
   @property({
     type: 'boolean',
+    default: false,
     mysql: {
       nullable: 'NO'
     }
   })
   isComplete?: boolean;
+
+  @property({
+    type: 'string',
+  })
+  remindAtAddress?: string; // address,city,zipcode
+
+  @property({
+    type: 'string',
+  })
+  remindAtGeo?: string; // latitude,longitude
 
 
   constructor(data?: Partial<Todo>) {

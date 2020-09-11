@@ -31,6 +31,9 @@
 3. Run `lb4 controller` and follow the prompts to create a controller for the repository. The new controller will appear in the src/controllers folder.
 
 ## Running Migrations
-1. Run `npm run build` to build the application.
-2. Run `npm run migrate` to run migrations. By default, update migrations will be ran, so the schema will be updated and not dropped, so existing data will be kept.
-3. To run a fresh migration that will drop and recreate the schema, but cause all data to be lost, run `npm run migrate -- --rebuild`.
+1. Run `npm run migrate` to run migrations. By default, update migrations will be ran, so the schema will be updated and not dropped, so existing data will be kept.
+2. To run a fresh migration that will drop and recreate the schema, but cause all data to be lost, run `npm run migrate -- --rebuild`.
+
+## Filtering Loopback API Queries
+1. Refer to the following for filter documentation: https://loopback.io/doc/en/lb4/Querying-data.html
+2. Where clause operators can be found here: https://loopback.io/doc/en/lb4/Where-filter.html#operators

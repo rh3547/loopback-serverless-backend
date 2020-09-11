@@ -1,3 +1,4 @@
+import {inject} from '@loopback/core';
 import {
   Count,
   CountSchema,
@@ -8,25 +9,24 @@ import {
 } from '@loopback/repository';
 import {
   del, get,
-  getModelSchemaRef, param,
+  getModelSchemaRef,
 
 
+
+  HttpErrors, param,
   patch, post,
-
-
-
-
   put,
-
   requestBody
 } from '@loopback/rest';
 import {Todo} from '../models';
 import {TodoRepository} from '../repositories';
+import {Geocoder} from '../services';
 
 export class TodoController {
   constructor(
     @repository(TodoRepository)
     public todoRepository: TodoRepository,
+    @inject('services.Geocoder') protected geoService: Geocoder,
   ) {}
 
   @post('/todos', {
@@ -50,6 +50,21 @@ export class TodoController {
     })
     todo: Omit<Todo, 'id'>,
   ): Promise<Todo> {
+    // If a remindAtAddress was passed, get the geo coordinates of that address from the geoService and store it on the model
+    if (todo.remindAtAddress) {
+      const geo = await this.geoService.geocode(todo.remindAtAddress);
+
+      if (!geo[0]) {
+        // Address not found
+        throw new HttpErrors.BadRequest(
+          `Address not found: ${todo.remindAtAddress}. Please change the address or omit it.`,
+        );
+      }
+
+      // Encode the coordinates as "lat,lng" (Google Maps API format)
+      todo.remindAtGeo = `${geo[0].y},${geo[0].x}`;
+    }
+
     return this.todoRepository.create(todo);
   }
 
@@ -131,7 +146,7 @@ export class TodoController {
 
   @patch('/todos/{id}', {
     responses: {
-      '204': {
+      '200': {
         description: 'Todo PATCH success',
         content: {
           'application/json': {
@@ -151,8 +166,9 @@ export class TodoController {
       },
     })
     todo: Todo,
-  ): Promise<void> {
-    return this.todoRepository.updateById(id, todo);
+  ): Promise<Todo> {
+    await this.todoRepository.updateById(id, todo);
+    return this.todoRepository.findById(id);
   }
 
   @put('/todos/{id}', {
