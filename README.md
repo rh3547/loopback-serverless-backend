@@ -9,10 +9,12 @@
 `npm install --ignore-scripts`
 `npm rebuild`
 
+3. Make sure you have a node version >= 10.
+
 ## Running the Application
 1. To run the application in a way that mocks AWS serverless infrastructure offline, run `npm run serve:{{environment}}` to start the application in different environments. Open the api at "http:localhost:3000".
   a. For example, `npm run serve:dev` will run the application in development mode. You can use any of the following for environments: [dev, qa, uat, prod].
-2. To run the application locally without mocking AWS, and to gain access to the Loopback explorer, run `npm start`. Open the api at "http:localhost:3000" or "http://[::1]:3000".
+2. To run the application locally without mocking AWS, and to gain access to the Loopback explorer, run `npm start`. Open the api at "http://localhost:3000" or "http://[::1]:3000".
   a. To access the Loopback explorer, navigate to "http:localhost:3000/explorer".
 
 ## Deploying to AWS

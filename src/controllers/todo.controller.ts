@@ -10,15 +10,12 @@ import {
 import {
   del, get,
   getModelSchemaRef,
-
-
-
   HttpErrors, param,
   patch, post,
   put,
   requestBody
 } from '@loopback/rest';
-import {Todo} from '../models';
+import {Todo, TodoList} from '../models';
 import {TodoRepository} from '../repositories';
 import {Geocoder} from '../services';
 
@@ -90,7 +87,7 @@ export class TodoController {
           'application/json': {
             schema: {
               type: 'array',
-              items: getModelSchemaRef(Todo, {includeRelations: true}),
+              items: getModelSchemaRef(Todo, {includeRelations: false}),
             },
           },
         },
@@ -150,7 +147,7 @@ export class TodoController {
         description: 'Todo PATCH success',
         content: {
           'application/json': {
-            schema: getModelSchemaRef(Todo, {includeRelations: true}),
+            schema: getModelSchemaRef(Todo, {includeRelations: false}),
           },
         },
       },
@@ -194,5 +191,25 @@ export class TodoController {
   })
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.todoRepository.deleteById(id);
+  }
+
+  // Relationship Methods
+
+  @get('/todos/{id}/todo-list', {
+    responses: {
+      '200': {
+        description: 'TodoList belonging to Todo',
+        content: {
+          'application/json': {
+            schema: {type: 'array', items: getModelSchemaRef(TodoList)},
+          },
+        },
+      },
+    },
+  })
+  async getTodoList(
+    @param.path.number('id') id: typeof Todo.prototype.id,
+  ): Promise<TodoList> {
+    return this.todoRepository.todoList(id);
   }
 }
