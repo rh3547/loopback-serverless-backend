@@ -31,10 +31,10 @@
     "prestart-raw": "npm run build",
     "start": "lb-tsc && node -r source-map-support/register .",
     "prepublishOnly": "npm run test",
-    "serve:dev": "set NODE_ENV=dev && npm run build && sls offline start -c serverless.yml",
-    "deploy:dev": "set NODE_ENV=dev && serverless deploy -v --aws-profile personal",
-    "remove:dev": "set NODE_ENV=dev && serverless remove -v  --aws-profile personal",
-    "serve:qa": "set NODE_ENV=qa && npm run build && sls offline start -c serverless.yml"
+    "serve:dev": "set NODE_ENV=dev && npm run build && sls offline start -c serverless.yml --stage dev",
+    "deploy:dev": "set NODE_ENV=dev && serverless deploy -v --aws-profile personal --stage dev",
+    "remove:dev": "set NODE_ENV=dev && serverless remove -v --aws-profile personal --stage dev",
+    "serve:qa": "set NODE_ENV=qa && npm run build && sls offline start -c serverless.yml --stage qa"
   },
   "repository": {
     "type": "git"

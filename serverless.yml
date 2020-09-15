@@ -1,9 +1,11 @@
 service: loopback-serverless-api
 
+custom:
+  env: ${opt:stage, 'dev'}
 provider:
   name: aws
   runtime: nodejs10.x
-  stage: dev
+  stage: ${self:custom.env}
   region: us-east-1
   timeout: 900
 
@@ -48,7 +50,7 @@ resources:
     CognitoUserPoolAppUserPool:
       Type: "AWS::Cognito::UserPool"
       Properties:
-        UserPoolName: "loopback-serverless-api-userpool"
+        UserPoolName: "loopback-serverless-api-userpool-${self:custom.env}"
         MfaConfiguration: "OFF"
         AutoVerifiedAttributes:
           - email
@@ -64,7 +66,7 @@ resources:
     UserPoolClient:
       Type: "AWS::Cognito::UserPoolClient"
       Properties:
-        ClientName: "loopback-serverless-api-mobile"
+        ClientName: "loopback-serverless-api-client-${self:custom.env}"
         GenerateSecret: false
         UserPoolId:
           Ref: CognitoUserPoolAppUserPool
